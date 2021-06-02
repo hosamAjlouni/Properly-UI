@@ -1,24 +1,35 @@
-import "./App.css";
+// React Imports:
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import GlobalStyle from "./app/styles/GlobalStyle";
-import Nav from "./app/components/Nav/Nav";
-import Home from "./app/pages/Home";
-import Contacts from "./app/pages/Contacts";
-import Properties from "./app/pages/Properties";
+
+// Utils Imports
+import withTheme from "./theme/Theme";
+
+// Material-UI Imports:
+import "@fontsource/roboto";
+import { Container } from "@material-ui/core";
+
+// My Components, Parts, and Pages
+import TopSideBars from "./components/Nav/TopSideBars";
+import ContactsPage from "./pages/ContactsPage";
+import HomePage from "./pages/HomePage";
+import PropertiesPage from "./pages/PropertiesPage";
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <GlobalStyle />
+      <div >
+        <header>
+          <TopSideBars />
+        </header>
 
-        <Nav />
-
-        <Switch>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/2" component={Properties} />
-          <Route exact path="/3" component={Contacts} />
-        </Switch>
+        <Container maxWidth="lg">
+          <Switch>
+            <Route exact path="/home" component={HomePage} />
+            <Route exact path="/" />
+            <Route exact path="/properties" component={PropertiesPage} />
+            <Route exact path="/contacts" component={ContactsPage} />
+          </Switch>
+        </Container>
 
         <footer style={{ position: "fixed", bottom: 0 }}>
           This is a Footer
@@ -28,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default withTheme(App);
