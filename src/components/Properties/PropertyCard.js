@@ -7,22 +7,31 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import CustomizedDialogs from "./PropertyDetailsDialog";
 
-// import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles({
+  Card: {
+    height: "350px",
+  },
+  title: {
+    display: "inline",
+    marginLeft: "5px",
+  },
+});
 
 const PropertyCard = ({ property }) => {
+  const classes = useStyles();
   return (
-    <Card>
+    <Card className={classes.Card}>
       <CardContent>
-        <Typography variant="h5">Title</Typography>
-        <Typography variant="body1">2</Typography>
-        <Typography variant="body1">3</Typography>
-        <Typography variant="body1">4</Typography>
-        <Typography variant="body1">4</Typography>
-        <Typography variant="body1">4</Typography>
-        <Typography variant="body1">4</Typography>
+        <Typography className={classes.title} variant="h6">
+          {property.name.toUpperCase()}
+        </Typography>
       </CardContent>
+
       <Divider />
+
       <CardActions>
         <ButtonGroup>
           <Button color="primary" variant="contained">
@@ -31,6 +40,7 @@ const PropertyCard = ({ property }) => {
           <Button color="secondary" variant="contained">
             Cancel
           </Button>
+          <CustomizedDialogs property={property} />
         </ButtonGroup>
       </CardActions>
     </Card>

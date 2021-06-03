@@ -5,7 +5,8 @@ const theme = createMuiTheme({
     fontFamily: "roboto",
   },
   palette: {
-    type: "dark",
+    // type: "dark",
+    type: "light",
   },
 });
 

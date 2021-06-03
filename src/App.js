@@ -6,7 +6,7 @@ import withTheme from "./theme/Theme";
 
 // Material-UI Imports:
 import "@fontsource/roboto";
-import { Container } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 
 // My Components, Parts, and Pages
 import TopSideBars from "./components/Nav/TopSideBars";
@@ -17,22 +17,21 @@ import PropertiesPage from "./pages/PropertiesPage";
 function App() {
   return (
     <Router>
-      <div >
+      <div>
         <header>
           <TopSideBars />
         </header>
 
         <Container maxWidth="lg">
           <Switch>
-            <Route exact path="/home" component={HomePage} />
-            <Route exact path="/" />
+            <Route exact path="/" component={HomePage} />
             <Route exact path="/properties" component={PropertiesPage} />
             <Route exact path="/contacts" component={ContactsPage} />
           </Switch>
         </Container>
 
         <footer style={{ position: "fixed", bottom: 0 }}>
-          This is a Footer
+          <Typography variant='h6'>This is a Footer</Typography>
         </footer>
       </div>
     </Router>

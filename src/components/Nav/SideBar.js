@@ -61,7 +61,7 @@ const SideBar = ({ isOpen, toggleDrawer }) => {
 
       <List>
         {["Sample", "Sample", "Sample"].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={index}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
@@ -74,7 +74,7 @@ const SideBar = ({ isOpen, toggleDrawer }) => {
 
   return (
     <div>
-      <SwipeableDrawer open={isOpen} onClose={toggleDrawer()}>
+      <SwipeableDrawer open={isOpen} onClose={toggleDrawer()} onOpen={toggleDrawer()}>
         {list}
       </SwipeableDrawer>
     </div>
