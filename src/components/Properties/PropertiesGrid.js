@@ -22,7 +22,7 @@ const PropertiesGrid = () => {
       <Typography variant="h5">Properties</Typography>
       <br />
 
-      <Grid container spacing={5}>
+      <Grid container spacing={3}>
         {properties.map((property) => (
           <Grid item xs={12} md={6} lg={4} key={property.id}>
             <PropertyCard property={property} />

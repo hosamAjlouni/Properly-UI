@@ -1,9 +1,11 @@
 import {
+  Grid,
   Button,
   ButtonGroup,
   Card,
-  CardActions,
+  CardHeader,
   CardContent,
+  CardActions,
   Divider,
   Typography,
 } from "@material-ui/core";
@@ -11,37 +13,42 @@ import { makeStyles } from "@material-ui/core/styles";
 import CustomizedDialogs from "./PropertyDetailsDialog";
 
 const useStyles = makeStyles({
-  Card: {
-    height: "350px",
-  },
-  title: {
-    display: "inline",
-    marginLeft: "5px",
+  CardContent: {
+    height: "100px",
   },
 });
 
 const PropertyCard = ({ property }) => {
   const classes = useStyles();
   return (
-    <Card className={classes.Card}>
-      <CardContent>
-        <Typography className={classes.title} variant="h6">
-          {property.name.toUpperCase()}
-        </Typography>
+    <Card>
+      <CardHeader
+        title={property.name.charAt(0).toUpperCase() + property.name.slice(1)}
+      />
+
+      <CardContent className={classes.CardContent}>
+        <Typography>Card content goes here</Typography>
       </CardContent>
 
       <Divider />
 
       <CardActions>
-        <ButtonGroup>
-          <Button color="primary" variant="contained">
-            Submit
-          </Button>
-          <Button color="secondary" variant="contained">
-            Cancel
-          </Button>
-          <CustomizedDialogs property={property} />
-        </ButtonGroup>
+        <Grid container justify='space-between'>
+          <Grid item>
+            <ButtonGroup>
+              <Button color="primary" variant="contained">
+                Submit
+              </Button>
+              <Button color="secondary" variant="contained">
+                Cancel
+              </Button>
+            </ButtonGroup>
+          </Grid>
+
+          <Grid item>
+            <CustomizedDialogs property={property} />
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );
