@@ -9,12 +9,7 @@ const AddPropertyForm = ({state, setState}) => {
         <Grid item xs={12}>
           <TextField
             value={state.name}
-            onChange={(e) => {
-              setState((state) => ({
-                ...state,
-                name: e.target.value,
-              }));
-            }}
+            onChange={(e) => setState.setName(e.target.value)}
             autoFocus
             label="Property Name"
             type="text"
@@ -23,18 +18,13 @@ const AddPropertyForm = ({state, setState}) => {
         </Grid>
 
         <Grid item xs={12}>
-          <DateInput date={state.date} setState={setState} label="Year Built" />
+          <DateInput date={state.date} setState={setState.setDate} label="Year Built" />
         </Grid>
 
         <Grid item xs={12}>
           <TextField
             value={state.description}
-            onChange={(e) => {
-              setState((state) => ({
-                ...state,
-                description: e.target.value,
-              }));
-            }}
+            onChange={(e) => setState.setDescription(e.target.value)}
             multiline
             rows={6}
             label="Description"

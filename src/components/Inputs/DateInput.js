@@ -11,10 +11,7 @@ export default function DateInput({label, date, setState}) {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setState(state => ({
-      ...state,
-      date: date
-    }))
+    setState(date)
   };
 
   return (

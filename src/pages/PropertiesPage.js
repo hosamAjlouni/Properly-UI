@@ -11,14 +11,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PropertiesPage = () => {
+const PropertiesPage = ({ setAlert }) => {
   const classes = useStyles();
 
   return (
     <React.Fragment>
       <PropertiesGrid />
       <div className={classes.fab}>
-        <AddPropertyFormDialog></AddPropertyFormDialog>
+        <AddPropertyFormDialog setAlert={setAlert} />
       </div>
     </React.Fragment>
   );

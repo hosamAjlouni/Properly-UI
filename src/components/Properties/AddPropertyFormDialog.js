@@ -11,60 +11,64 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import AddPropertyForm from "./AddPropertyForm";
+import formatDate from "../../utils/formatDate";
 
-export default function AddPropertyFormDialog() {
+export default function AddPropertyFormDialog({ setAlert }) {
   const [open, setOpen] = React.useState(false);
-  const [state, setState] = useState({
-    name: "",
-    date: new Date(),
-    description: "",
-    user: "admin",
-  });
+  const [name, setName] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [description, setDescription] = useState("");
+  const [user] = useState(1);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const toggleDialog = () => {
+    setOpen(!open);
   };
 
   const handleSubmit = () => {
-    fetch("http://127.0.0.1:8000/api/properties/", {
+    const url = "http://127.0.0.1:8000/api/properties/";
+    const options = {
       method: "POST",
       headers: {
+        accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: {
-        name: state.name,
-        year_built: state.date,
-        description: state.description,
-        user: state.user,
-      },
-    })
+      body: JSON.stringify({
+        name: name,
+        year_built: formatDate(date),
+        description: description,
+        user: user,
+      }),
+    };
+
+    fetch(url, options)
       .then((res) => {
-        console.log('respoooonseeeeeee');
-        console.log(res);
-        res.json();
+        if (res.ok) {
+          setName("");
+          setDate(new Date());
+          setDescription("");
+          toggleDialog();
+          setAlert({
+            alertType: 'success',
+            alertText: 'Property has been added successfully'
+          })
+        }
+
+        return res.json();
       })
-      .then((data) => {
-        console.log("dataaaaaaaaaaaa");
-        console.log(data);
-      })
+      .then((data) => {})
       .catch((error) => {
-        console.log("errrrrrrrrrrrrr");
-        console.log(error);
+        console.log(error.message);
       });
   };
 
   return (
     <div>
-      <Fab variant="round" color="primary" onClick={handleClickOpen}>
+      <Fab variant="round" color="primary" onClick={toggleDialog}>
         <AddIcon />
       </Fab>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={toggleDialog}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Create Property</DialogTitle>
@@ -73,10 +77,13 @@ export default function AddPropertyFormDialog() {
             To add a new property, please enter all required information.
           </DialogContentText>
 
-          <AddPropertyForm state={state} setState={setState} />
+          <AddPropertyForm
+            state={{ name, date, description }}
+            setState={{ setName, setDate, setDescription }}
+          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={toggleDialog} color="primary">
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
