@@ -1,6 +1,8 @@
-import { AccountCircle } from "@material-ui/icons";
+import React from "react";
+import { connect } from 'react-redux'
+import { toggleDrawerAction } from '../../redux/actions'
 import {
-  AppBar,
+  AppBar as TopBar,
   Badge,
   fade,
   IconButton,
@@ -11,12 +13,12 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import { AccountCircle } from "@material-ui/icons";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -82,7 +84,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopBar = ({ toggleDrawer }) => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleDrawer: () => dispatch(toggleDrawerAction()),
+  };
+};
+
+const AppBar = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -166,10 +174,10 @@ const TopBar = ({ toggleDrawer }) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar style={{marginBottom: '15px'}} position="static">
+      <TopBar style={{marginBottom: '15px'}} position="static">
         <Toolbar>
           <IconButton
-            onClick={toggleDrawer()}
+            onClick={props.toggleDrawer}
             edge="start"
             className={classes.menuButton}
             color="inherit"
@@ -228,11 +236,11 @@ const TopBar = ({ toggleDrawer }) => {
             </IconButton>
           </div>
         </Toolbar>
-      </AppBar>
+      </TopBar>
       {renderMobileMenu}
       {renderMenu}
     </div>
   );
 };
 
-export default TopBar;
+export default connect(null, mapDispatchToProps)(AppBar);

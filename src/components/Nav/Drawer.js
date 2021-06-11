@@ -1,3 +1,7 @@
+import React from "react";
+import { connect } from "react-redux";
+import { toggleDrawerAction } from "../../redux/actions";
+import { Link } from "react-router-dom";
 import {
   Divider,
   List,
@@ -6,16 +10,23 @@ import {
   ListItemText,
   SwipeableDrawer,
 } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import HomeIcon from "@material-ui/icons/Home";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 import PeopleIcon from "@material-ui/icons/People";
 
-import { Link } from "react-router-dom";
-import React from "react";
+const mapStateToProps = (state) => {
+  return {
+    open: state.drawer.open,
+  };
+};
 
-const SideBar = ({ isOpen, toggleDrawer }) => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleDrawer: () => dispatch(toggleDrawerAction()),
+  };
+};
+
+const Drawer = (props) => {
   const firstList = [
     {
       label: "Properties",
@@ -33,8 +44,8 @@ const SideBar = ({ isOpen, toggleDrawer }) => {
     <div
       style={{ width: 250 }}
       role="presentation"
-      onClick={toggleDrawer()}
-      onKeyDown={toggleDrawer()}
+      onClick={props.toggleDrawer}
+      onKeyDown={props.toggleDrawer}
     >
       <ListItem button component={Link} to="/">
         <ListItemIcon>
@@ -48,10 +59,7 @@ const SideBar = ({ isOpen, toggleDrawer }) => {
       <List>
         {firstList.map((item, index) => (
           <ListItem button component={Link} to={item.url} key={item.label}>
-            <ListItemIcon>
-              {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-              {item.icon}
-            </ListItemIcon>
+            <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.label} />
           </ListItem>
         ))}
@@ -60,12 +68,10 @@ const SideBar = ({ isOpen, toggleDrawer }) => {
       <Divider />
 
       <List>
-        {["Sample", "Sample", "Sample"].map((text, index) => (
-          <ListItem button key={index}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        {firstList.map((item, index) => (
+          <ListItem button component={Link} to={item.url} key={item.label}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.label} />
           </ListItem>
         ))}
       </List>
@@ -74,11 +80,15 @@ const SideBar = ({ isOpen, toggleDrawer }) => {
 
   return (
     <div>
-      <SwipeableDrawer open={isOpen} onClose={toggleDrawer()} onOpen={toggleDrawer()}>
+      <SwipeableDrawer
+        open={props.open}
+        onClose={props.toggleDrawer}
+        onOpen={props.toggleDrawer}
+      >
         {list}
       </SwipeableDrawer>
     </div>
   );
 };
 
-export default SideBar;
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer);

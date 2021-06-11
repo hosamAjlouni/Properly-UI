@@ -1,5 +1,5 @@
 // React Imports:
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { useState } from "react";
 
 // Utils Imports
@@ -10,20 +10,19 @@ import "@fontsource/roboto";
 import { Container } from "@material-ui/core";
 
 // My Components, Parts, and Pages
-import TopSideBars from "./components/Nav/TopSideBars";
+import TopSideBars from "./components/Nav/navBars";
 import ContactsPage from "./pages/ContactsPage";
 import HomePage from "./pages/HomePage";
 import PropertiesPage from "./pages/PropertiesPage";
-import Alert from "./components/Alert";
+import Alert from "./common/alert/Alert";
 
 function App() {
   const [alert, setAlert] = useState({
-    alertType: "error",
-    alertText: "fdasfdfdsafdsfasfadsfdasfadsf",
+    alertType: "",
+    alertText: "",
   });
 
   return (
-    <Router>
       <div>
         <header>
           <TopSideBars />
@@ -45,7 +44,6 @@ function App() {
           <Typography variant="h6">This is a Footer</Typography>
         </footer> */}
       </div>
-    </Router>
   );
 }
 

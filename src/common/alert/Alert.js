@@ -1,7 +1,6 @@
 import React from "react";
 import { Alert as MuiAlert, AlertTitle } from "@material-ui/lab/";
 import Snackbar from "@material-ui/core/Snackbar";
-import { useEffect } from "react";
 
 const Alert = ({ alert, setAlert }) => {
   const handleClose = () => {
