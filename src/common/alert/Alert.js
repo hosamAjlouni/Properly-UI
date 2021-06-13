@@ -1,36 +1,42 @@
 import React from "react";
+import { connect } from "react-redux";
+import { CLEAR_ALERT } from "./state/actions";
 import { Alert as MuiAlert, AlertTitle } from "@material-ui/lab/";
 import Snackbar from "@material-ui/core/Snackbar";
 
-const Alert = ({ alert, setAlert }) => {
-  const handleClose = () => {
-    setAlert({
-      alertType: "",
-      alertText: "",
-    });
-  };
+const mapStateToProps = (state) => {
+  return { alert: state.alert };
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearAlert: () => dispatch(CLEAR_ALERT()),
+  };
+};
+
+const Alert = ({ alert, clearAlert }) => {
   return (
     <React.Fragment>
-      {alert.alertText && (
-        <Snackbar
-          open={alert.alertText ? true : false}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <MuiAlert
-            style={{ position: "fixed", bottom: 0 }}
-            fullWidth
-            variant="filled"
-            severity={alert.alertType || "info"}
+      {alert.text && alert.type && (
+        <div>
+          <Snackbar
+            open={alert.text ? true : false}
+            autoHideDuration={3000}
+            onClose={clearAlert}
           >
-            <AlertTitle>{alert.alertType || "Info"}</AlertTitle>
-            {alert.alertText || "Alert"}
-          </MuiAlert>
-        </Snackbar>
+            <MuiAlert
+              style={{ position: "fixed", bottom: 0 }}
+              variant="filled"
+              severity={alert.type || "info"}
+            >
+              <AlertTitle>{alert.type || "Info"}</AlertTitle>
+              {alert.text || "Alert"}
+            </MuiAlert>
+          </Snackbar>
+        </div>
       )}
     </React.Fragment>
   );
 };
 
-export default Alert;
+export default connect(mapStateToProps, mapDispatchToProps)(Alert);

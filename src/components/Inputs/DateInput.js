@@ -1,19 +1,12 @@
 import "date-fns";
-import { React, useState } from "react";
+import { React } from "react";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-export default function DateInput({label, date, setState}) {
-  const [selectedDate, setSelectedDate] = useState(date);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setState(date)
-  };
-
+export default function DateInput({label, date, setFormField}) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
@@ -22,8 +15,8 @@ export default function DateInput({label, date, setState}) {
         id="date-picker-dialog"
         label={label}
         format="MM/dd/yyyy"
-        value={selectedDate}
-        onChange={handleDateChange}
+        value={date}
+        onChange={(date) => setFormField('yearBuilt', date)}
         KeyboardButtonProps={{
           "aria-label": "change date",
         }}

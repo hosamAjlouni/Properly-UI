@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleDrawerAction } from "../../redux/actions";
+import { TOGGLE_DRAWER } from "./state/actions";
 import { Link } from "react-router-dom";
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  SwipeableDrawer,
-} from "@material-ui/core";
+
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+
 import HomeIcon from "@material-ui/icons/Home";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 import PeopleIcon from "@material-ui/icons/People";
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleDrawer: () => dispatch(toggleDrawerAction()),
+    toggleDrawer: () => dispatch(TOGGLE_DRAWER()),
   };
 };
 

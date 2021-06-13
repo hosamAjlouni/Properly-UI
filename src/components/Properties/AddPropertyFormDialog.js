@@ -1,5 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { connect } from "react-redux";
+import { SET_ALERT } from "../../common/alert/state/actions";
+import { TOGGLE_DIALOG, SET_FORM_FIELD, CLEAR_FORM } from "./state/actions";
 import {
   Fab,
   Button,
@@ -13,44 +15,56 @@ import AddIcon from "@material-ui/icons/Add";
 import AddPropertyForm from "./AddPropertyForm";
 import formatDate from "../../utils/formatDate";
 
-export default function AddPropertyFormDialog({ setAlert }) {
-  const [open, setOpen] = React.useState(false);
-  const [name, setName] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [description, setDescription] = useState("");
-  const [user] = useState(1);
-
-  const toggleDialog = () => {
-    setOpen(!open);
+const mapStateToProps = (state) => {
+  return {
+    name: state.properties.form.name,
+    yearBuilt: state.properties.form.yearBuilt,
+    description: state.properties.form.description,
+    open: state.properties.formDialog.open,
   };
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleDialog: () => dispatch(TOGGLE_DIALOG()),
+    setAlert: (type, text) => dispatch(SET_ALERT(type, text)),
+    setFormField: (fieldName, value) => dispatch(SET_FORM_FIELD()),
+    clearForm: () => dispatch(CLEAR_FORM()),
+  };
+};
+
+const AddPropertyFormDialog = ({
+  open,
+  toggleDialog,
+  setAlert,
+  name,
+  yearBuilt,
+  description,
+  clearForm,
+}) => {
   const handleSubmit = () => {
     const url = "http://127.0.0.1:8000/api/properties/";
+    const body = {
+      name: name,
+      year_built: formatDate(yearBuilt),
+      description: description,
+      user: 1,
+    };
     const options = {
       method: "POST",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: name,
-        year_built: formatDate(date),
-        description: description,
-        user: user,
-      }),
+      body: JSON.stringify(body),
     };
 
     fetch(url, options)
       .then((res) => {
         if (res.ok) {
-          setName("");
-          setDate(new Date());
-          setDescription("");
           toggleDialog();
-          setAlert({
-            alertType: 'success',
-            alertText: 'Property has been added successfully'
-          })
+          clearForm();
+          setAlert("success", "Property has been added successfully");
         }
 
         return res.json();
@@ -77,10 +91,7 @@ export default function AddPropertyFormDialog({ setAlert }) {
             To add a new property, please enter all required information.
           </DialogContentText>
 
-          <AddPropertyForm
-            state={{ name, date, description }}
-            setState={{ setName, setDate, setDescription }}
-          />
+          <AddPropertyForm />
         </DialogContent>
         <DialogActions>
           <Button onClick={toggleDialog} color="primary">
@@ -93,4 +104,9 @@ export default function AddPropertyFormDialog({ setAlert }) {
       </Dialog>
     </div>
   );
-}
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddPropertyFormDialog);

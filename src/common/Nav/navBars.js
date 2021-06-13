@@ -2,7 +2,7 @@ import React from "react";
 import AppBar from "./AppBar";
 import Drawer from "./Drawer";
 
-const TopSideBar = (props) => {
+const NavBars = (props) => {
   return (
     <div>
       <AppBar />
@@ -11,4 +11,4 @@ const TopSideBar = (props) => {
   );
 };
 
-export default TopSideBar;
+export default NavBars;

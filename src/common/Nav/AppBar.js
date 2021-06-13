@@ -1,19 +1,19 @@
 import React from "react";
-import { connect } from 'react-redux'
-import { toggleDrawerAction } from '../../redux/actions'
-import {
-  AppBar as TopBar,
-  Badge,
-  fade,
-  IconButton,
-  InputBase,
-  makeStyles,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import { AccountCircle } from "@material-ui/icons";
+import { connect } from "react-redux";
+import { TOGGLE_DRAWER } from "./state/actions";
+
+import MuiAppBar from "@material-ui/core/AppBar";
+import Badge from "@material-ui/core/Badge";
+import { fade } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import InputBase from "@material-ui/core/InputBase";
+import makeStyles from "@material-ui/styles/makeStyles";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleDrawer: () => dispatch(toggleDrawerAction()),
+    toggleDrawer: () => dispatch(TOGGLE_DRAWER()),
   };
 };
 
@@ -174,7 +174,7 @@ const AppBar = (props) => {
 
   return (
     <div className={classes.grow}>
-      <TopBar style={{marginBottom: '15px'}} position="static">
+      <MuiAppBar style={{ marginBottom: "15px" }} position="static">
         <Toolbar>
           <IconButton
             onClick={props.toggleDrawer}
@@ -236,7 +236,7 @@ const AppBar = (props) => {
             </IconButton>
           </div>
         </Toolbar>
-      </TopBar>
+      </MuiAppBar>
       {renderMobileMenu}
       {renderMenu}
     </div>

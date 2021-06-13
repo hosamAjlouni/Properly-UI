@@ -1,15 +1,31 @@
+import { connect } from 'react-redux'
 import { Grid, TextField } from "@material-ui/core";
 import DateInput from "../Inputs/DateInput";
+import { SET_FORM_FIELD } from "./state/actions";
 
-const AddPropertyForm = ({state, setState}) => {
+const mapStateToProps = (state) => {
+  return {
+    name: state.properties.form.name,
+    yearBuilt: state.properties.form.yearBuilt,
+    description: state.properties.form.description,
+  };
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setFormField: (fieldName, value) => dispatch(SET_FORM_FIELD(fieldName, value)),
+  };
+};
+
+const AddPropertyForm = ({ name, yearBuilt, description, setFormField }) => {
   return (
     <div>
       <Grid container>
         <Grid item xs={12}>
           <TextField
-            value={state.name}
-            onChange={(e) => setState.setName(e.target.value)}
+            name="name"
+            value={name}
+            onChange={(e) => setFormField(e.target.name, e.target.value)}
             autoFocus
             label="Property Name"
             type="text"
@@ -18,13 +34,18 @@ const AddPropertyForm = ({state, setState}) => {
         </Grid>
 
         <Grid item xs={12}>
-          <DateInput date={state.date} setState={setState.setDate} label="Year Built" />
+          <DateInput
+            date={yearBuilt}
+            setFormField={setFormField}
+            label="Year Built"
+          />
         </Grid>
 
         <Grid item xs={12}>
           <TextField
-            value={state.description}
-            onChange={(e) => setState.setDescription(e.target.value)}
+            name="description"
+            value={description}
+            onChange={(e) => setFormField(e.target.name, e.target.value)}
             multiline
             rows={6}
             label="Description"
@@ -37,4 +58,4 @@ const AddPropertyForm = ({state, setState}) => {
   );
 };
 
-export default AddPropertyForm;
+export default connect(mapStateToProps, mapDispatchToProps)(AddPropertyForm);
