@@ -21,7 +21,9 @@ const useStyles = makeStyles({
 const PropertyCard = ({ property }) => {
   const classes = useStyles();
   return (
-    <Card>
+    <Card 
+    // variant="outlined"
+    >
       <CardHeader
         title={property.name.charAt(0).toUpperCase() + property.name.slice(1)}
       />
@@ -33,15 +35,15 @@ const PropertyCard = ({ property }) => {
       <Divider />
 
       <CardActions>
-        <Grid container justify='space-between'>
+        <Grid container justify="space-between">
           <Grid item>
             <ButtonGroup>
-              <Button color="primary" variant="contained">
+              {/* <Button color="primary" variant="contained">
                 Submit
               </Button>
               <Button color="secondary" variant="contained">
                 Cancel
-              </Button>
+              </Button> */}
             </ButtonGroup>
           </Grid>
 

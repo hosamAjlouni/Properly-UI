@@ -1,7 +1,10 @@
 body {
   margin: 0px;
   height: 100vh;
-  background-color: #212121;
+  /* background-color: #212121; */
+  /* background-color: #1a1a1a; */
+  background-color: #121212;
+  
   /* background-color: #ffffff; */
   color: #ffffff;
 }
