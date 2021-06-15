@@ -1,7 +1,7 @@
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import { Grid, TextField } from "@material-ui/core";
-import DateInput from "../Inputs/DateInput";
-import { SET_FORM_FIELD } from "./state/actions";
+import DateInput from "components/common/Inputs/DateInput";
+import { SET_FORM_FIELD } from "redux/properties/actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,7 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setFormField: (fieldName, value) => dispatch(SET_FORM_FIELD(fieldName, value)),
+    setFormField: (fieldName, value) =>
+      dispatch(SET_FORM_FIELD(fieldName, value)),
   };
 };
 

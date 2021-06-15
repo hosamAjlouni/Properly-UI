@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { SET_ALERT } from "../../common/alert/state/actions";
-import { TOGGLE_DIALOG, SET_FORM_FIELD, CLEAR_FORM } from "./state/actions";
+import { SET_ALERT } from "redux/alert/actions";
+import { TOGGLE_DIALOG, SET_FORM_FIELD, CLEAR_FORM } from "redux/properties/actions";
 import {
   Fab,
   Button,

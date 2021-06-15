@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { TOGGLE_DRAWER } from "./state/actions";
+import { TOGGLE_DRAWER } from "redux/nav/actions";
 import { Link } from "react-router-dom";
 
 import Divider from "@material-ui/core/Divider";
@@ -16,7 +16,7 @@ import PeopleIcon from "@material-ui/icons/People";
 
 const mapStateToProps = (state) => {
   return {
-    open: state.drawer.open,
+    open: state.nav.open,
   };
 };
 

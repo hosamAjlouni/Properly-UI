@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { TOGGLE_DRAWER } from "./state/actions";
+import { TOGGLE_DRAWER } from "redux/nav/actions";
 
 import MuiAppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";

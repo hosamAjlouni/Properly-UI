@@ -6,11 +6,11 @@ import "@fontsource/roboto";
 import { Container } from "@material-ui/core";
 
 // My Components, Parts, and Pages
-import NavBars from "./common/Nav/navBars";
+import NavBars from "./components/common/Nav/navBars";
 import ContactsPage from "./pages/ContactsPage";
 import HomePage from "./pages/HomePage";
 import PropertiesPage from "./pages/PropertiesPage";
-import Alert from "./common/alert/Alert";
+import Alert from "./components/common/alert/Alert";
 
 function App() {
   return (

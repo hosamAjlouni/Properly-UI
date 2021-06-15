@@ -1,6 +1,6 @@
 import React from "react";
-import PropertiesGrid from "../components/Properties/PropertiesGrid";
-import AddPropertyFormDialog from "../components/Properties/AddPropertyFormDialog";
+import PropertiesGrid from "components/Properties/PropertiesGrid";
+import AddPropertyFormDialog from "components/Properties/AddPropertyFormDialog";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({

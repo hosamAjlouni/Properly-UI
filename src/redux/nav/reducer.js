@@ -2,7 +2,7 @@ const initialState = {
   open: false,
 };
 
-const drawerReducer = (state = initialState, action) => {
+const navReducer = (state = initialState, action) => {
   switch (action.type) {
     case "TOGGLE_DRAWER":
       return { ...state, open: !state.open };
@@ -11,4 +11,4 @@ const drawerReducer = (state = initialState, action) => {
   }
 };
 
-export default drawerReducer;
+export default navReducer;
