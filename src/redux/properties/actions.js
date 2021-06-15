@@ -5,6 +5,13 @@ const SET_PROPERTIES = (properties) => {
   };
 };
 
+const SET_FETCH_REQUIRED = (required) => {
+  return {
+    type: "SET_FETCH_REQUIRED",
+    payload: required
+  }
+}
+
 const SET_FORM_FIELD = (fieldName, value) => {
   return {
     type: "SET_FORM_FIELD",
@@ -24,4 +31,4 @@ const TOGGLE_DIALOG = () => {
   };
 };
 
-export { SET_PROPERTIES, SET_FORM_FIELD, CLEAR_FORM, TOGGLE_DIALOG };
+export { SET_PROPERTIES, SET_FETCH_REQUIRED, SET_FORM_FIELD, CLEAR_FORM, TOGGLE_DIALOG };

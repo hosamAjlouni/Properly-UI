@@ -1,28 +1,23 @@
 const initialState = {
-  items: [],
-  fetchRequired: true,
+  units: [],
   formDialog: {
     open: false,
   },
   form: {
-    name: "",
-    yearBuilt: new Date(),
-    description: "",
+    // name: "",
+    // yearBuilt: new Date(),
+    // description: "",
   },
 };
 
-const propertiesReducer = (state = initialState, action) => {
+const unitsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_PROPERTIES":
+    case "SET_UNITS":
       return {
         ...state,
-        items: action.payload,
+        units: action.payload,
       };
-    case "SET_FETCH_REQUIRED":
-      return {
-        ...state,
-        fetchRequired: action.payload,
-      };
+
     case "SET_FORM_FIELD":
       return {
         ...state,
@@ -40,6 +35,7 @@ const propertiesReducer = (state = initialState, action) => {
           description: "",
         },
       };
+
     case "TOGGLE_DIALOG":
       return {
         ...state,
@@ -47,9 +43,10 @@ const propertiesReducer = (state = initialState, action) => {
           open: !state.formDialog.open,
         },
       };
+
     default:
       return { ...state };
   }
 };
 
-export default propertiesReducer;
+export default unitsReducer;

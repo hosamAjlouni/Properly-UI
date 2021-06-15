@@ -1,25 +1,39 @@
 import { connect } from "react-redux";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Button } from "@material-ui/core";
 import PropertyCard from "./PropertyCard";
 import React from "react";
-import useFetchProperties from "./useFetchProperties";
+import useFetchProperties from "api/properties/useFetchProperties";
+import { SET_FETCH_REQUIRED } from "redux/properties/actions";
+import RefreshIcon from "@material-ui/icons/Refresh";
 
 const mapStateToProps = (state) => {
   return {
-    properties: state.properties.properties,
+    properties: state.properties,
   };
 };
 
-const PropertiesGrid = ({ properties }) => {
-  useFetchProperties("http://127.0.0.1:8000/api/properties/");
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requireFetch: () => dispatch(SET_FETCH_REQUIRED(true)),
+  };
+};
+
+const PropertiesGrid = ({ properties, requireFetch }) => {
+  useFetchProperties(properties.fetchRequired);
 
   return (
     <React.Fragment>
-      <Typography variant="h5">Properties</Typography>
+      <Grid container justify="space-between">
+        <Typography variant="h4">Properties</Typography>
+        <Button variant="outlined" color="primary" onClick={requireFetch}>
+          <RefreshIcon />
+        </Button>
+      </Grid>
+
       <br />
-      
+
       <Grid container spacing={3}>
-        {properties.map((property, index) => (
+        {properties.items.map((property, index) => (
           <Grid item xs={12} md={6} lg={4} key={property.id}>
             <PropertyCard property={property} i={index} />
           </Grid>
@@ -29,4 +43,4 @@ const PropertiesGrid = ({ properties }) => {
   );
 };
 
-export default connect(mapStateToProps, null)(PropertiesGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(PropertiesGrid);

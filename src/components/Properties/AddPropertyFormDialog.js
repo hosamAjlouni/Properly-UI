@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import AddPropertyForm from "./AddPropertyForm";
-import formatDate from "../../utils/formatDate";
+import formatDate from "utils/formatDate";
 
 const mapStateToProps = (state) => {
   return {
@@ -60,14 +60,14 @@ const AddPropertyFormDialog = ({
     };
 
     fetch(url, options)
-      .then((res) => {
-        if (res.ok) {
+      .then((response) => {
+        if (response.ok) {
           toggleDialog();
           clearForm();
           setAlert("success", "Property has been added successfully");
         }
 
-        return res.json();
+        return response.json();
       })
       .then((data) => {})
       .catch((error) => {
