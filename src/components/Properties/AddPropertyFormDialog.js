@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { SET_ALERT } from "redux/alert/actions";
-import { TOGGLE_DIALOG, SET_FORM_FIELD, CLEAR_FORM } from "redux/properties/actions";
+import { TOGGLE_DIALOG, SET_FORM_FIELD, CLEAR_FORM, SET_FETCH_REQUIRED } from "redux/properties/actions";
 import {
   Fab,
   Button,
@@ -30,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
     setAlert: (type, text) => dispatch(SET_ALERT(type, text)),
     setFormField: (fieldName, value) => dispatch(SET_FORM_FIELD()),
     clearForm: () => dispatch(CLEAR_FORM()),
+    requireFetch: () => dispatch(SET_FETCH_REQUIRED(true))
   };
 };
 
@@ -41,6 +42,7 @@ const AddPropertyFormDialog = ({
   yearBuilt,
   description,
   clearForm,
+  requireFetch
 }) => {
   const handleSubmit = () => {
     const url = "http://127.0.0.1:8000/api/properties/";
@@ -65,11 +67,13 @@ const AddPropertyFormDialog = ({
           toggleDialog();
           clearForm();
           setAlert("success", "Property has been added successfully");
+          requireFetch();
         }
-
         return response.json();
       })
-      .then((data) => {})
+      .then((data) => {
+        console.log(data)
+      })
       .catch((error) => {
         console.log(error.message);
       });

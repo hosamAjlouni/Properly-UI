@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Grid, TextField } from "@material-ui/core";
-import DateInput from "components/common/Inputs/DateInput";
+import DateInput from "components/Common/Inputs/DateInput";
 import { SET_FORM_FIELD } from "redux/properties/actions";
 
 const mapStateToProps = (state) => {
@@ -31,6 +31,8 @@ const AddPropertyForm = ({ name, yearBuilt, description, setFormField }) => {
             label="Property Name"
             type="text"
             fullWidth
+            autoComplete={false}
+            autoCorrect={false}
           />
         </Grid>
 

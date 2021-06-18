@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import { Grid, Typography, Button } from "@material-ui/core";
 import PropertyCard from "./PropertyCard";
 import React from "react";
-import useFetchProperties from "api/properties/useFetchProperties";
 import { SET_FETCH_REQUIRED } from "redux/properties/actions";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
@@ -19,8 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const PropertiesGrid = ({ properties, requireFetch }) => {
-  useFetchProperties(properties.fetchRequired);
-
   return (
     <React.Fragment>
       <Grid container justify="space-between">
@@ -33,9 +30,9 @@ const PropertiesGrid = ({ properties, requireFetch }) => {
       <br />
 
       <Grid container spacing={3}>
-        {properties.items.map((property, index) => (
+        {properties.items.map((property) => (
           <Grid item xs={12} md={6} lg={4} key={property.id}>
-            <PropertyCard property={property} i={index} />
+            <PropertyCard property={property} />
           </Grid>
         ))}
       </Grid>

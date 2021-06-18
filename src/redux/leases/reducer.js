@@ -11,9 +11,9 @@ const initialState = {
   },
 };
 
-const unitsReducer = (state = initialState, action) => {
+const leasesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_UNITS":
+    case "SET_LEASES":
       return {
         ...state,
         items: action.payload,
@@ -24,7 +24,7 @@ const unitsReducer = (state = initialState, action) => {
         ...state,
         fetchRequired: action.payload,
       };
-
+      
     case "SET_FORM_FIELD":
       return {
         ...state,
@@ -43,17 +43,9 @@ const unitsReducer = (state = initialState, action) => {
         },
       };
 
-    case "TOGGLE_DIALOG":
-      return {
-        ...state,
-        formDialog: {
-          open: !state.formDialog.open,
-        },
-      };
-
     default:
       return { ...state };
   }
 };
 
-export default unitsReducer;
+export default leasesReducer;

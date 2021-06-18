@@ -1,10 +1,10 @@
 import store from "redux/store";
 import { useEffect } from "react";
-import { SET_PROPERTIES, SET_FETCH_REQUIRED } from "redux/properties/actions";
+import { SET_LEASES, SET_FETCH_REQUIRED } from "redux/leases/actions";
 import { SET_ALERT } from "redux/alert/actions";
 
-const useFetchProperties = (fetchRequired) => {
-  const url = "http://127.0.0.1:8000/api/properties/";
+const useFetchUnits = (fetchRequired) => {
+  const url = "http://127.0.0.1:8000/api/leases/";
 
   useEffect(() => {
     if (fetchRequired) {
@@ -12,9 +12,9 @@ const useFetchProperties = (fetchRequired) => {
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          store.dispatch(SET_PROPERTIES(data));
+          store.dispatch(SET_LEASES(data));
           store.dispatch(
-            SET_ALERT("success", "Properties Loaded Successfully")
+            SET_ALERT("success", "Units Loaded Successfully")
           );
         })
         .catch((err) => {
@@ -24,4 +24,4 @@ const useFetchProperties = (fetchRequired) => {
   }, [fetchRequired]);
 };
 
-export default useFetchProperties;
+export default useFetchUnits;

@@ -1,7 +1,7 @@
-const SET_UNITS = (units) => {
+const SET_LEASES = (leases) => {
   return {
-    type: "SET_UNITS",
-    payload: units,
+    type: "SET_LEASES",
+    payload: leases,
   };
 };
 
@@ -25,16 +25,9 @@ const CLEAR_FORM = () => {
   };
 };
 
-const TOGGLE_DIALOG = () => {
-  return {
-    type: "TOGGLE_DIALOG",
-  };
-};
-
 export {
-  SET_UNITS,
+  SET_LEASES,
   SET_FETCH_REQUIRED,
   SET_FORM_FIELD,
   CLEAR_FORM,
-  TOGGLE_DIALOG,
 };
