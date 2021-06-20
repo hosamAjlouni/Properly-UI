@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { SET_LEASES, SET_FETCH_REQUIRED } from "redux/leases/actions";
 import { SET_ALERT } from "redux/alert/actions";
 
-const useFetchUnits = (fetchRequired) => {
+const useFetchLeases = (fetchRequired) => {
   const url = "http://127.0.0.1:8000/api/leases/";
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const useFetchUnits = (fetchRequired) => {
         .then((data) => {
           store.dispatch(SET_LEASES(data));
           store.dispatch(
-            SET_ALERT("success", "Units Loaded Successfully")
+            SET_ALERT("success", "Leases Loaded Successfully")
           );
         })
         .catch((err) => {
@@ -24,4 +24,4 @@ const useFetchUnits = (fetchRequired) => {
   }, [fetchRequired]);
 };
 
-export default useFetchUnits;
+export default useFetchLeases;

@@ -17,31 +17,25 @@ import useFetchProperties from "api/properties/useFetchProperties";
 import useFetchUnits from "api/units/useFetchUnits";
 import useFetchLeases from "api/leases/useFetchLeases";
 
-import leaseState from "components/Leases/utils/leaseState";
-
 const mapStateToProps = (state) => {
   return {
-    propertiesFetchRequired: state.properties.fetchRequired,
-    unitsFetchRequired: state.units.fetchRequired,
-    leasesFetchRequired: state.leases.fetchRequired,
-    state: state,
+    properties: state.properties,
+    units: state.units,
+    leases: state.leases,
+    // state: state,
   };
 };
 
 function App({
-  state,
-  propertiesFetchRequired,
-  unitsFetchRequired,
-  leasesFetchRequired,
+  // state,
+  properties,
+  units,
+  leases,
 }) {
-  useFetchProperties(propertiesFetchRequired);
-  useFetchUnits(unitsFetchRequired);
-  useFetchLeases(leasesFetchRequired);
-
-  state.leases.items.forEach((lease) => {
-    console.log(leaseState(lease));
-  });
-
+  useFetchLeases(leases.fetchRequired);
+  useFetchUnits(units.fetchRequired);
+  useFetchProperties(properties.fetchRequired);
+  // console.log(state)
   return (
     <div>
       <header>
