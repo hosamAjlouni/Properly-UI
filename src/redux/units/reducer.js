@@ -1,6 +1,5 @@
 const initialState = {
   items: [],
-  fetchRequired: true,
   formDialog: {
     open: false,
   },
@@ -17,12 +16,6 @@ const unitsReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
-      };
-
-    case "SET_FETCH_REQUIRED":
-      return {
-        ...state,
-        fetchRequired: action.payload,
       };
 
     case "SET_FORM_FIELD":

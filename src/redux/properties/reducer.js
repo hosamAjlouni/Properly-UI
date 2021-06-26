@@ -1,13 +1,21 @@
 const initialState = {
   items: [],
-  fetchRequired: true,
   formDialog: {
     open: false,
   },
   form: {
-    name: "",
-    yearBuilt: new Date(),
-    description: "",
+    name: {
+      value: "",
+      error: "",
+    },
+    yearBuilt: {
+      value: new Date(),
+      error: "",
+    },
+    description: {
+      value: "",
+      error: "",
+    },
   },
 };
 
@@ -18,28 +26,50 @@ const propertiesReducer = (state = initialState, action) => {
         ...state,
         items: action.payload,
       };
-    case "SET_FETCH_REQUIRED":
-      return {
-        ...state,
-        fetchRequired: action.payload,
-      };
-    case "SET_FORM_FIELD":
+
+    case "SET_FORM_FIELD_VALUE":
       return {
         ...state,
         form: {
           ...state.form,
-          [action.payload.fieldName]: action.payload.value,
+          [action.payload.fieldName]: {
+            ...state.form[action.payload.fieldName],
+            value: action.payload.value,
+          },
         },
       };
+
+    case "SET_FORM_FIELD_ERROR":
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          [action.payload.fieldName]: {
+            ...state.form[action.payload.fieldName],
+            error: action.payload.error,
+          },
+        },
+      };
+
     case "CLEAR_FORM":
       return {
         ...state,
         form: {
-          name: "",
-          yearBuilt: new Date(),
-          description: "",
+          name: {
+            value: "",
+            error: "",
+          },
+          yearBuilt: {
+            value: new Date(),
+            error: "",
+          },
+          description: {
+            value: "",
+            error: "",
+          },
         },
       };
+
     case "TOGGLE_DIALOG":
       return {
         ...state,
@@ -47,6 +77,7 @@ const propertiesReducer = (state = initialState, action) => {
           open: !state.formDialog.open,
         },
       };
+
     default:
       return { ...state };
   }

@@ -1,9 +1,7 @@
 import { connect } from "react-redux";
-import { Grid, Typography, Button } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import PropertyCard from "./PropertyCard";
 import React from "react";
-import { SET_FETCH_REQUIRED } from "redux/properties/actions";
-import RefreshIcon from "@material-ui/icons/Refresh";
 
 const mapStateToProps = (state) => {
   return {
@@ -12,20 +10,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    requireFetch: () => dispatch(SET_FETCH_REQUIRED(true)),
-  };
+  return {};
 };
 
-const PropertiesGrid = ({ properties, requireFetch }) => {
+const PropertiesGrid = ({ properties }) => {
   return (
     <React.Fragment>
-      <Grid container justify="space-between">
-        <Typography variant="h4">Properties</Typography>
-        <Button variant="outlined" color="primary" onClick={requireFetch}>
-          <RefreshIcon />
-        </Button>
-      </Grid>
+      <Typography variant="h4">Properties</Typography>
 
       <br />
 

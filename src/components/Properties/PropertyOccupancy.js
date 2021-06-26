@@ -4,8 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-import occupancyRate from "utils/properties/occupancyRate";
-
 const mapStateToProps = (state) => {
   return {
     units: state.units.items,
@@ -13,7 +11,7 @@ const mapStateToProps = (state) => {
 };
 
 const PropertyOccupancy = ({ property }) => {
-  const occupancy = occupancyRate(property);
+  const occupancy = property.occupancy;
   return (
     <React.Fragment>
       <Grid container justify="space-between">
@@ -28,7 +26,7 @@ const PropertyOccupancy = ({ property }) => {
       </Grid>
       <LinearProgress
         value={
-          (occupancy.occupied / (occupancy.occupied + occupancy.vacant)) * 100
+          ((occupancy.occupied / (occupancy.occupied + occupancy.vacant)) * 100) || 0
         }
         variant="determinate"
       ></LinearProgress>

@@ -1,6 +1,5 @@
 const initialState = {
   items: [],
-  fetchRequired: true,
   formDialog: {
     open: false,
   },
@@ -19,12 +18,6 @@ const leasesReducer = (state = initialState, action) => {
         items: action.payload,
       };
 
-    case "SET_FETCH_REQUIRED":
-      return {
-        ...state,
-        fetchRequired: action.payload,
-      };
-      
     case "SET_FORM_FIELD":
       return {
         ...state,
@@ -33,6 +26,7 @@ const leasesReducer = (state = initialState, action) => {
           [action.payload.fieldName]: action.payload.value,
         },
       };
+      
     case "CLEAR_FORM":
       return {
         ...state,

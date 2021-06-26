@@ -1,27 +1,20 @@
 import store from "redux/store";
 import { useEffect } from "react";
-import { SET_UNITS, SET_FETCH_REQUIRED } from "redux/units/actions";
-import { SET_ALERT } from "redux/alert/actions";
+import { SET_UNITS } from "redux/units/actions";
 
-const useFetchUnits = (fetchRequired) => {
+const useFetchUnits = () => {
   const url = "http://127.0.0.1:8000/api/units/";
 
   useEffect(() => {
-    if (fetchRequired) {
-      store.dispatch(SET_FETCH_REQUIRED(false));
-      fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          store.dispatch(SET_UNITS(data));
-          store.dispatch(
-            SET_ALERT("success", "Units Loaded Successfully")
-          );
-        })
-        .catch((err) => {
-          store.dispatch(SET_ALERT("error", err.message));
-        });
-    }
-  }, [fetchRequired]);
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        store.dispatch(SET_UNITS(data));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 };
 
 export default useFetchUnits;

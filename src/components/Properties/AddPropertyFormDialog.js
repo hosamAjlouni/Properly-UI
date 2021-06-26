@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { SET_ALERT } from "redux/alert/actions";
-import { TOGGLE_DIALOG, SET_FORM_FIELD, CLEAR_FORM, SET_FETCH_REQUIRED } from "redux/properties/actions";
+import {
+  TOGGLE_DIALOG,
+  SET_FORM_FIELD_ERROR,
+  CLEAR_FORM,
+} from "redux/properties/actions";
 import {
   Fab,
   Button,
@@ -17,9 +21,7 @@ import formatDate from "utils/formatDate";
 
 const mapStateToProps = (state) => {
   return {
-    name: state.properties.form.name,
-    yearBuilt: state.properties.form.yearBuilt,
-    description: state.properties.form.description,
+    form: state.properties.form,
     open: state.properties.formDialog.open,
   };
 };
@@ -28,9 +30,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toggleDialog: () => dispatch(TOGGLE_DIALOG()),
     setAlert: (type, text) => dispatch(SET_ALERT(type, text)),
-    setFormField: (fieldName, value) => dispatch(SET_FORM_FIELD()),
+    setFormFieldError: (fieldName, error) =>
+      dispatch(SET_FORM_FIELD_ERROR(fieldName, error)),
     clearForm: () => dispatch(CLEAR_FORM()),
-    requireFetch: () => dispatch(SET_FETCH_REQUIRED(true))
   };
 };
 
@@ -38,18 +40,16 @@ const AddPropertyFormDialog = ({
   open,
   toggleDialog,
   setAlert,
-  name,
-  yearBuilt,
-  description,
+  form,
   clearForm,
-  requireFetch
+  setFormFieldError
 }) => {
   const handleSubmit = () => {
     const url = "http://127.0.0.1:8000/api/properties/";
     const body = {
-      name: name,
-      year_built: formatDate(yearBuilt),
-      description: description,
+      name: form.name.value,
+      year_built: formatDate(form.yearBuilt.value),
+      description: form.description.value,
       user: 1,
     };
     const options = {
@@ -63,19 +63,20 @@ const AddPropertyFormDialog = ({
 
     fetch(url, options)
       .then((response) => {
-        if (response.ok) {
-          toggleDialog();
+        if (response.status === 201) {
           clearForm();
+          toggleDialog();
           setAlert("success", "Property has been added successfully");
-          requireFetch();
+        } else if (response.status === 400) {
+          response.json().then((data) => {
+            Object.keys(data).forEach(key => {
+              setFormFieldError(key, ...data[key])
+            })
+          });
         }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data)
       })
       .catch((error) => {
-        console.log(error.message);
+        console.log("this is an error");
       });
   };
 

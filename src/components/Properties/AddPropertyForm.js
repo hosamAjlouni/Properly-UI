@@ -1,59 +1,63 @@
 import { connect } from "react-redux";
 import { Grid, TextField } from "@material-ui/core";
 import DateInput from "components/Common/Inputs/DateInput";
-import { SET_FORM_FIELD } from "redux/properties/actions";
+import { SET_FORM_FIELD_VALUE } from "redux/properties/actions";
 
 const mapStateToProps = (state) => {
   return {
-    name: state.properties.form.name,
-    yearBuilt: state.properties.form.yearBuilt,
-    description: state.properties.form.description,
+    form: state.properties.form
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setFormField: (fieldName, value) =>
-      dispatch(SET_FORM_FIELD(fieldName, value)),
+    setFormFieldValue: (fieldName, value) =>
+      dispatch(SET_FORM_FIELD_VALUE(fieldName, value)),
   };
 };
 
-const AddPropertyForm = ({ name, yearBuilt, description, setFormField }) => {
+const AddPropertyForm = ({ form, setFormFieldValue }) => {
   return (
     <div>
       <Grid container>
         <Grid item xs={12}>
           <TextField
             name="name"
-            value={name}
-            onChange={(e) => setFormField(e.target.name, e.target.value)}
+            value={form.name.value}
+            onChange={(e) => setFormFieldValue(e.target.name, e.target.value)}
             autoFocus
             label="Property Name"
             type="text"
             fullWidth
             autoComplete={false}
             autoCorrect={false}
+            error={form.name.error}
+            helperText={form.name.error}
           />
         </Grid>
 
         <Grid item xs={12}>
           <DateInput
-            date={yearBuilt}
-            setFormField={setFormField}
+            date={form.yearBuilt.value}
+            setFormField={setFormFieldValue}
             label="Year Built"
+            error={form.yearBuilt.error}
+            helperText={form.yearBuilt.error}
           />
         </Grid>
 
         <Grid item xs={12}>
           <TextField
             name="description"
-            value={description}
-            onChange={(e) => setFormField(e.target.name, e.target.value)}
+            value={form.description.value}
+            onChange={(e) => setFormFieldValue(e.target.name, e.target.value)}
             multiline
             rows={6}
             label="Description"
             type="Textarea"
             fullWidth
+            error={form.description.error}
+            helperText={form.description.error}
           />
         </Grid>
       </Grid>
